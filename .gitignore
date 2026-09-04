@@ -1,0 +1,27 @@
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+android/app/debug/
+android/app/profile/
+android/app/release/
+*.iml
+.idea/
+.vscode/
+*.log
+
+# Dart
+.pub-cache/
+.pub/
+pubspec.lock
+
+# Supabase local
+.supabase/
+
+# OS
+.DS_Store
+Thumbs.db

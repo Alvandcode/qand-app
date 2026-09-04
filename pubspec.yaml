@@ -1,0 +1,32 @@
+name: qand_app
+description: اپ قنادی قند - سفارش کیک خونگی، کوکی، بیسکوییت و کیک تولد
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.2.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  supabase_flutter: ^2.5.0
+  image_picker: ^1.0.7
+  url_launcher: ^6.2.5
+  shared_preferences: ^2.2.2
+  shamsi_date: ^1.0.0
+  intl: ^0.19.0
+  cached_network_image: ^3.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/logo/

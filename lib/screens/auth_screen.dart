@@ -1,0 +1,83 @@
+import 'package:flutter/material.dart';
+import '../theme/qand_theme.dart';
+import '../services/auth_service.dart';
+import 'home_screen.dart';
+
+class AuthScreen extends StatefulWidget {
+  const AuthScreen({super.key});
+  @override
+  State<AuthScreen> createState() => _AuthScreenState();
+}
+
+class _AuthScreenState extends State<AuthScreen> {
+  final _user = TextEditingController();
+  final _pass = TextEditingController();
+  bool _isLogin = true;
+  String? _err;
+
+  Future<void> _submit() async {
+    final u = _user.text.trim();
+    final p = _pass.text.trim();
+    if (u.length < 3 || p.length < 4) {
+      setState(() => _err = 'نام کاربری حداقل ۳ و رمز حداقل ۴ کاراکتر');
+      return;
+    }
+    final s = AuthService();
+    final ok = _isLogin ? await s.login(u, p) : await s.register(u, p);
+    if (!mounted) return;
+    if (!ok) {
+      setState(() => _err = _isLogin ? 'ورود ناموفق بود' : 'این نام کاربری قبلا ثبت شده');
+      return;
+    }
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen(username: u)));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 260,
+              decoration: QandTheme.headerGradient(),
+              child: const Center(
+                child: Column(mainAxisSize: MainAxisSize.min, children: [
+                  Text('👩‍🍳', style: TextStyle(fontSize: 64)),
+                  Text('به قنادی قند خوش اومدی', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+                ]),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(children: [
+                    Text(_isLogin ? 'ورود' : 'ثبت‌نام', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 12),
+                    TextField(controller: _user, decoration: const InputDecoration(labelText: 'نام کاربری', prefixIcon: Icon(Icons.person))),
+                    const SizedBox(height: 12),
+                    TextField(controller: _pass, obscureText: true, decoration: const InputDecoration(labelText: 'رمز شخصی', prefixIcon: Icon(Icons.lock))),
+                    if (_err != null) ...[
+                      const SizedBox(height: 8),
+                      Text(_err!, style: const TextStyle(color: Colors.red)),
+                    ],
+                    const SizedBox(height: 16),
+                    ElevatedButton(onPressed: _submit, child: Text(_isLogin ? 'ورود' : 'ساخت حساب')),
+                    TextButton(
+                      onPressed: () => setState(() => _isLogin = !_isLogin),
+                      child: Text(_isLogin ? 'حساب نداری؟ ثبت‌نام کن' : 'حساب داری؟ وارد شو'),
+                    ),
+                    const Divider(),
+                    const Text('ادمین پیش‌فرض: admin / 1234', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                  ]),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
