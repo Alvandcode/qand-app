@@ -1,10 +1,8 @@
 name: Build APK
-
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,6 +17,7 @@ jobs:
           channel: stable
           flutter-version: 3.22.2
       - run: flutter pub get
+      - run: flutter create . --org com.qand --project-name qand_app --platforms android || true
       - run: flutter analyze || true
       - run: flutter build apk --release
       - uses: actions/upload-artifact@v4
