@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.qand.app"
-    compileSdk = 34
+    compileSdk = 35
     ndkVersion = "25.1.8937393"
 
     compileOptions {
@@ -19,9 +19,9 @@ android {
 
     defaultConfig {
         applicationId = "com.qand.app"
-        // اندروید 7 تا 17 : min 24 ، target 34
+        // اندروید 7 تا 17 : min 24 ، target 35
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0.0"
         multiDexEnabled = true
