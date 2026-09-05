@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,3 +30,10 @@ jobs:
         with:
           name: qand-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+      - run: cp build/app/outputs/flutter-apk/app-release.apk qand-app.apk
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: "قنادی قند - آخرین نسخه"
+          body: "APK آماده نصب (اندروید 7 تا 17). بیلد خودکار از main."
+          files: qand-app.apk
